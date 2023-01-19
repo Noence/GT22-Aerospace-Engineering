@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>HW1_Q4.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #808080;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #cc7832;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+HW1_Q4.py</font>
+</center></td></tr></table>
+<pre><span class="s0">##AE 4803 - Homework 1 Question 4</span>
+<span class="s0">##By Noe Lepez Da Silva Duarte</span>
+
+<span class="s2">import </span><span class="s1">numpy </span><span class="s2">as </span><span class="s1">np</span>
+<span class="s2">import </span><span class="s1">matplotlib.pyplot </span><span class="s2">as </span><span class="s1">plt</span>
+
+<span class="s0"># Part a</span>
+
+<span class="s1">x0 = </span><span class="s3">1</span>
+<span class="s1">fx = (</span><span class="s3">2 </span><span class="s1">** x0) / x0</span>
+<span class="s1">exact_soln = (</span><span class="s3">2 </span><span class="s1">** x0) * (x0 * np.log(</span><span class="s3">2</span><span class="s1">) - </span><span class="s3">1</span><span class="s1">) / x0</span>
+
+<span class="s0"># Part b</span>
+
+<span class="s1">h = np.logspace(</span><span class="s3">0</span><span class="s2">, </span><span class="s1">-</span><span class="s3">10</span><span class="s2">, </span><span class="s3">1000</span><span class="s1">)</span>
+<span class="s1">errors_b = []</span>
+<span class="s2">for </span><span class="s1">i </span><span class="s2">in </span><span class="s1">h:</span>
+    <span class="s1">fxh = </span><span class="s3">2 </span><span class="s1">** (x0 + i) / (x0 + i)</span>
+    <span class="s1">ans = (fxh - fx) / i</span>
+    <span class="s1">er = np.abs((exact_soln - ans) / exact_soln)*</span><span class="s3">100</span>
+    <span class="s1">errors_b.append(er)</span>
+
+<span class="s1">plot1 = plt.figure()</span>
+<span class="s1">ax = plot1.add_subplot(</span><span class="s3">111</span><span class="s1">)</span>
+<span class="s1">ax.plot(h</span><span class="s2">, </span><span class="s1">errors_b)</span>
+
+<span class="s0"># create axes and labels</span>
+<span class="s1">ax.set_xlabel(</span><span class="s4">'h'</span><span class="s1">)</span>
+<span class="s1">ax.set_ylabel(</span><span class="s4">'Relative error (%)'</span><span class="s1">)</span>
+<span class="s1">ax.set_title(</span><span class="s4">'True relative error of equation 1 as a function of h'</span><span class="s1">)</span>
+<span class="s1">ax.set_xscale(</span><span class="s4">'log'</span><span class="s1">)</span>
+<span class="s1">ax.set_yscale(</span><span class="s4">'log'</span><span class="s1">)</span>
+<span class="s1">plt.grid()</span>
+
+<span class="s1">plt.savefig(</span><span class="s4">'Q4_b'</span><span class="s2">, </span><span class="s1">dpi=</span><span class="s3">300</span><span class="s1">)</span>
+<span class="s1">plt.show()</span>
+
+<span class="s0"># Part c</span>
+
+<span class="s1">errors_c = []</span>
+<span class="s2">for </span><span class="s1">i </span><span class="s2">in </span><span class="s1">h:</span>
+    <span class="s1">fw = (</span><span class="s3">2 </span><span class="s1">** (x0 + i / </span><span class="s3">2</span><span class="s1">)) / (x0 + i / </span><span class="s3">2</span><span class="s1">)</span>
+    <span class="s1">bw = (</span><span class="s3">2 </span><span class="s1">** (x0 - i / </span><span class="s3">2</span><span class="s1">)) / (x0 - i / </span><span class="s3">2</span><span class="s1">)</span>
+    <span class="s1">ans = (fw - bw) / i</span>
+    <span class="s1">er = np.abs((exact_soln - ans) / exact_soln)*</span><span class="s3">100</span>
+    <span class="s1">errors_c.append(er)</span>
+
+<span class="s1">plot2 = plt.figure()</span>
+<span class="s1">ax = plot2.add_subplot(</span><span class="s3">111</span><span class="s1">)</span>
+<span class="s1">ax.plot(h</span><span class="s2">, </span><span class="s1">errors_c</span><span class="s2">, </span><span class="s1">color=</span><span class="s4">'red'</span><span class="s1">)</span>
+
+<span class="s0"># create axes and labels</span>
+<span class="s1">ax.set_xlabel(</span><span class="s4">'h'</span><span class="s1">)</span>
+<span class="s1">ax.set_ylabel(</span><span class="s4">'Relative error (%)'</span><span class="s1">)</span>
+<span class="s1">ax.set_title(</span><span class="s4">'True relative error of equation 2 as a function of h'</span><span class="s1">)</span>
+<span class="s1">ax.set_xscale(</span><span class="s4">'log'</span><span class="s1">)</span>
+<span class="s1">ax.set_yscale(</span><span class="s4">'log'</span><span class="s1">)</span>
+<span class="s1">plt.grid()</span>
+
+<span class="s1">plt.savefig(</span><span class="s4">'Q4_c'</span><span class="s2">, </span><span class="s1">dpi=</span><span class="s3">300</span><span class="s1">)</span>
+<span class="s1">plt.show()</span>
+
+<span class="s0"># Part d</span>
+
+<span class="s1">plot3 = plt.figure()</span>
+<span class="s1">ax = plot3.add_subplot(</span><span class="s3">111</span><span class="s1">)</span>
+<span class="s1">ax.plot(h</span><span class="s2">, </span><span class="s1">errors_b</span><span class="s2">, </span><span class="s1">label=</span><span class="s4">'Equation 1'</span><span class="s1">)</span>
+<span class="s1">ax.plot(h</span><span class="s2">, </span><span class="s1">errors_c</span><span class="s2">, </span><span class="s1">color=</span><span class="s4">'red'</span><span class="s2">, </span><span class="s1">label=</span><span class="s4">'Equation 2'</span><span class="s1">)</span>
+
+<span class="s0"># create axes and labels</span>
+<span class="s1">ax.set_xlabel(</span><span class="s4">'h'</span><span class="s1">)</span>
+<span class="s1">ax.set_ylabel(</span><span class="s4">'Relative error (%)'</span><span class="s1">)</span>
+<span class="s1">ax.set_title(</span><span class="s4">'True relative error of equations 1 &amp; 2 as a function of h'</span><span class="s1">)</span>
+<span class="s1">ax.set_xscale(</span><span class="s4">'log'</span><span class="s1">)</span>
+<span class="s1">ax.set_yscale(</span><span class="s4">'log'</span><span class="s1">)</span>
+<span class="s1">plt.legend()</span>
+<span class="s1">plt.grid()</span>
+
+<span class="s1">plt.savefig(</span><span class="s4">'Q4_d'</span><span class="s2">, </span><span class="s1">dpi=</span><span class="s3">300</span><span class="s1">)</span>
+<span class="s1">plt.show()</span>
+</pre>
+</body>
+</html>
